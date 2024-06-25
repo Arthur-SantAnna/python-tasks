@@ -2,16 +2,17 @@ import re
 
 def remove_numbers(file, output_file):
     minute_pattern = re.compile(r'\d{1,2}:\d{2}$')
+    filtered_lines = []
     with open(file, 'r') as f:
         lines = f.readlines()
 
         for line in lines:
-            if re.match(minute_pattern, line):
-                lines.remove(line)
+            if not minute_pattern.match(line.strip()):
+                filtered_lines.append(line)
             
         
     with open(output_file, 'w') as w:
-        w.writelines(lines)
+        w.writelines(filtered_lines)
 
 
 if __name__ == '__main__':
